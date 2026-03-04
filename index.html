@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>FAHMI STORE – JB & Akun Gaming</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#070b14;--bg2:#0c1220;--card:#101828;--border:#1e2d45;
+  --text:#e8dfc8;--muted:#7a8fa6;--gold:#d4a843;--wa:#25d366;
+  --red:#ef4444;--green:#22c55e;--blue:#3b82f6;--purple:#a78bfa;
+}
+body{background:var(--bg);color:var(--text);font-family:'Nunito',sans-serif;min-height:100vh;overflow-x:hidden;}
+a{text-decoration:none;}
+button{font-family:'Nunito',sans-serif;cursor:pointer;}
+input,select{font-family:'Nunito',sans-serif;outline:none;}
+::-webkit-scrollbar{width:5px;}
+::-webkit-scrollbar-thumb{background:#1e2d45;border-radius:3px;}
+
+/* ANIMATIONS */
+@keyframes fadeIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes slideIn{from{transform:translateX(-110%)}to{transform:translateX(0)}}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes floatStar{0%,100%{transform:translateY(0) rotate(0deg);opacity:.7}50%{transform:translateY(-18px) rotate(15deg);opacity:1}}
+@keyframes floatMoon{0%,100%{transform:translateY(0) rotate(-5deg);opacity:.8}50%{transform:translateY(-12px) rotate(5deg);opacity:1}}
+@keyframes twinkle{0%,100%{opacity:.2;transform:scale(.8)}50%{opacity:1;transform:scale(1.2)}}
+@keyframes lanternSwing{0%,100%{transform:rotate(-8deg)}50%{transform:rotate(8deg)}}
+.fadeIn{animation:fadeIn .4s ease both;}
+.float-star{animation:floatStar 4s ease-in-out infinite;}
+.float-moon{animation:floatMoon 6s ease-in-out infinite;}
+.twinkle{animation:twinkle 2s ease-in-out infinite;}
+.lantern{animation:lanternSwing 3s ease-in-out infinite;transform-origin:top center;}
+.bounce{animation:bounce 2s infinite;}
+
+/* NAVBAR */
+nav{position:sticky;top:0;z-index:100;background:#070b14f0;backdrop-filter:blur(14px);
+  border-bottom:1px solid #1e3a5f;padding:14px 5%;display:flex;align-items:center;justify-content:space-between;}
+.nav-logo{font-family:'Rajdhani',sans-serif;font-size:22px;font-weight:700;letter-spacing:1px;cursor:pointer;}
+.nav-logo span{color:var(--gold);}
+.nav-btns{display:flex;gap:8px;align-items:center;}
+.btn{display:inline-flex;align-items:center;gap:6px;border:none;border-radius:8px;
+  padding:9px 18px;font-size:13px;font-weight:700;cursor:pointer;transition:opacity .15s,transform .15s;}
+.btn:hover{opacity:.88;transform:translateY(-1px);}
+.btn-gold{background:linear-gradient(135deg,var(--gold),#ff9f1c);color:#0a0c13;}
+.btn-wa{background:var(--wa);color:white;}
+.btn-red{background:var(--red);color:white;}
+.btn-blue{background:var(--blue);color:white;}
+.btn-green{background:var(--green);color:#0a0c13;}
+.btn-outline{background:transparent;border:1px solid var(--border);color:var(--text);}
+.btn-danger-outline{background:transparent;border:1px solid var(--red);color:var(--red);}
+.btn-full{width:100%;justify-content:center;padding:12px 0;font-size:14px;}
+
+/* BG */
+#ramadan-bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;}
+#ramadan-bg .sky{position:absolute;inset:0;background:radial-gradient(ellipse 120% 60% at 50% 0%,#0d1f3a 0%,#070b14 60%);}
+.star-dot{position:absolute;border-radius:50%;background:#fff;}
+.ramadan-moon{position:absolute;top:4%;right:8%;font-size:72px;filter:drop-shadow(0 0 18px #d4a84380);}
+.ramadan-star1{position:absolute;top:10%;right:22%;font-size:22px;filter:drop-shadow(0 0 8px #d4a843aa);}
+.ramadan-star2{position:absolute;top:28%;left:6%;font-size:16px;filter:drop-shadow(0 0 6px #d4a843aa);}
+.ramadan-star3{position:absolute;top:55%;right:4%;font-size:18px;filter:drop-shadow(0 0 7px #d4a843aa);}
+.lantern1{position:absolute;top:-10px;left:12%;font-size:36px;filter:drop-shadow(0 0 12px #d4a84360);}
+.lantern2{position:absolute;top:-10px;left:30%;font-size:28px;filter:drop-shadow(0 0 10px #d4a84360);animation-delay:1s;}
+.lantern3{position:absolute;top:-10px;right:15%;font-size:32px;filter:drop-shadow(0 0 11px #d4a84360);animation-delay:.5s;}
+.lantern4{position:absolute;top:-10px;right:35%;font-size:24px;filter:drop-shadow(0 0 9px #d4a84360);animation-delay:1.5s;}
+
+/* PAGES */
+.page{display:none;position:relative;z-index:1;}
+.page.active{display:block;animation:fadeIn .4s ease both;}
+
+/* HERO */
+.hero{text-align:center;padding:80px 5% 48px;background:radial-gradient(ellipse 80% 50% at 50% 0%,#d4a84308,transparent);}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:#d4a84320;border:1px solid #d4a84350;
+  color:var(--gold);padding:6px 16px;border-radius:99px;font-size:12px;font-weight:700;letter-spacing:1px;margin-bottom:20px;}
+.hero h1{font-family:'Rajdhani',sans-serif;font-size:clamp(38px,8vw,76px);font-weight:700;
+  line-height:1.05;letter-spacing:2px;margin-bottom:16px;text-shadow:0 0 60px #d4a84350,0 0 120px #1e3a5f80;}
+.hero h1 .gold{color:var(--gold);}
+.hero h1 .sub{font-size:55%;color:#94a3b8;}
+.hero p{color:var(--muted);font-size:15px;max-width:440px;margin:0 auto 32px;line-height:1.7;}
+.hero-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+
+/* STATS */
+.stats{display:flex;margin:0 5% 48px;background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;flex-wrap:wrap;}
+.stat{flex:1;min-width:110px;padding:24px 12px;text-align:center;border-right:1px solid var(--border);}
+.stat:last-child{border-right:none;}
+.stat-val{font-family:'Rajdhani',sans-serif;font-size:30px;font-weight:700;color:var(--gold);}
+.stat-label{font-size:12px;color:var(--muted);margin-top:4px;font-weight:600;}
+
+/* SECTION */
+section{padding:0 5% 56px;}
+.section-title{text-align:center;margin-bottom:32px;}
+.section-title h2{font-family:'Rajdhani',sans-serif;font-size:34px;font-weight:700;}
+.section-title h2 span{color:var(--gold);}
+.section-title p{color:var(--muted);font-size:14px;margin-top:6px;}
+
+/* TABS */
+.tabs{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:24px;}
+.tab{padding:8px 18px;border-radius:99px;border:1px solid var(--border);background:transparent;
+  color:var(--muted);font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;}
+.tab.active{background:var(--gold);color:#0a0c13;border-color:var(--gold);}
+
+/* PRODUCT GRID */
+.product-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:14px;}
+.product-card{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;
+  transition:transform .2s,box-shadow .2s,border-color .2s;cursor:pointer;}
+.product-card:hover{transform:translateY(-4px);box-shadow:0 14px 40px #00000060;border-color:var(--gold);}
+.product-banner{height:130px;display:flex;align-items:center;justify-content:center;font-size:36px;overflow:hidden;}
+.product-banner img{width:100%;height:100%;object-fit:cover;}
+.product-info{padding:12px;}
+.badge{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;letter-spacing:.5px;}
+.product-name{font-weight:700;font-size:14px;margin:7px 0 3px;}
+.product-meta{font-size:11px;color:var(--muted);margin-bottom:2px;}
+.product-price{font-family:'Rajdhani',sans-serif;font-size:22px;font-weight:700;color:var(--gold);margin-bottom:8px;}
+
+/* LOGIN */
+.login-wrap{min-height:80vh;display:flex;align-items:center;justify-content:center;padding:20px;}
+.login-box{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:36px 28px;width:100%;max-width:400px;}
+.login-box h2{font-family:'Rajdhani',sans-serif;font-size:26px;color:var(--gold);text-align:center;margin-bottom:6px;}
+.login-box p{color:var(--muted);font-size:14px;text-align:center;margin-bottom:24px;}
+.form-group{margin-bottom:14px;}
+.form-label{font-size:12px;color:var(--muted);font-weight:700;margin-bottom:5px;display:block;}
+.form-input{width:100%;background:var(--bg2);border:1px solid var(--border);border-radius:8px;
+  padding:10px 12px;color:var(--text);font-size:14px;}
+.form-select{width:100%;background:var(--bg2);border:1px solid var(--border);border-radius:8px;
+  padding:10px 12px;color:var(--text);font-size:14px;}
+.error-msg{color:var(--red);font-size:13px;margin-bottom:12px;}
+.link-text{color:var(--gold);font-weight:700;cursor:pointer;}
+
+/* DASHBOARD */
+#dashboard-page{min-height:calc(100vh - 58px);}
+.dash-topbar{display:flex;align-items:center;gap:14px;margin-bottom:24px;padding:20px 4% 0;}
+.dash-topbar-title{font-family:'Rajdhani',sans-serif;font-size:20px;font-weight:700;}
+.dash-topbar-sub{font-size:12px;color:var(--muted);}
+.dash-content{padding:0 4% 40px;}
+.menu-btn{background:var(--card);border:1px solid var(--border);color:var(--text);border-radius:10px;
+  width:42px;height:42px;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+
+/* DRAWER */
+#drawer-overlay{display:none;position:fixed;inset:0;z-index:150;background:#000000aa;}
+#drawer{display:none;position:fixed;top:0;left:0;bottom:0;z-index:200;width:240px;
+  background:var(--bg2);border-right:1px solid var(--border);padding:20px 12px;
+  flex-direction:column;gap:4px;overflow-y:auto;animation:slideIn .25s ease both;}
+#drawer.open{display:flex;}
+#drawer-overlay.open{display:block;}
+.drawer-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;}
+.drawer-close{background:none;border:none;color:var(--muted);font-size:22px;cursor:pointer;line-height:1;}
+.profile-card{background:var(--card);border-radius:12px;padding:14px 12px;margin-bottom:12px;
+  border:1px solid var(--border);text-align:center;}
+.profile-avatar{width:48px;height:48px;border-radius:50%;margin:0 auto 8px;
+  background:linear-gradient(135deg,var(--gold),#ff9f1c);display:flex;align-items:center;
+  justify-content:center;font-size:22px;font-weight:700;color:#0a0c13;}
+.profile-name{font-weight:700;font-size:14px;}
+.nav-item{display:flex;align-items:center;gap:10px;padding:11px 14px;border-radius:10px;
+  cursor:pointer;font-size:14px;font-weight:600;transition:all .2s;color:var(--muted);background:transparent;
+  border:none;width:100%;text-align:left;}
+.nav-item.active{background:linear-gradient(135deg,var(--gold),#ff9f1c);color:#0a0c13;}
+.nav-item:hover:not(.active){background:#1e2d45;color:var(--text);}
+
+/* STAT CARDS */
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:14px;margin-bottom:24px;}
+.stat-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px 14px;}
+.stat-card-val{font-family:'Rajdhani',sans-serif;font-size:30px;font-weight:700;}
+.stat-card-label{font-size:12px;color:var(--muted);margin-top:4px;font-weight:600;}
+
+/* TABLES & LISTS */
+.table-wrap{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;}
+table{width:100%;border-collapse:collapse;}
+th{text-align:left;padding:12px 14px;font-size:12px;color:var(--muted);font-weight:700;border-bottom:1px solid var(--border);}
+td{padding:11px 14px;font-size:13px;border-bottom:1px solid var(--border);}
+tr:last-child td{border-bottom:none;}
+tr:hover td{background:#1a1d2a;}
+
+/* USER CARDS */
+.user-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:12px;}
+.user-card-top{display:flex;align-items:center;gap:12px;margin-bottom:12px;}
+.user-avatar{width:46px;height:46px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;
+  justify-content:center;font-size:18px;font-weight:700;color:white;position:relative;}
+.online-dot{position:absolute;bottom:1px;right:1px;width:11px;height:11px;border-radius:50%;
+  border:2px solid var(--card);}
+.user-btns{display:flex;gap:8px;}
+.user-btns .btn{flex:1;justify-content:center;padding:10px 0;font-size:13px;}
+
+/* MODAL */
+#modal-overlay{display:none;position:fixed;inset:0;z-index:999;background:#000a;
+  align-items:center;justify-content:center;padding:16px;}
+#modal-overlay.open{display:flex;}
+.modal-box{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px;
+  width:100%;max-width:440px;max-height:90vh;overflow-y:auto;animation:fadeIn .3s ease both;}
+.modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;}
+.modal-title{font-family:'Rajdhani',sans-serif;font-size:20px;font-weight:700;}
+.modal-close{background:none;border:none;color:var(--muted);font-size:20px;cursor:pointer;}
+
+/* PHOTO UPLOAD */
+.photo-upload-area{width:100%;height:160px;border-radius:12px;border:2px dashed var(--border);
+  background:var(--bg2);display:flex;flex-direction:column;align-items:center;justify-content:center;
+  cursor:pointer;overflow:hidden;position:relative;transition:border-color .2s;}
+.photo-upload-area.has-photo{border-color:var(--gold);}
+.photo-upload-area img{width:100%;height:100%;object-fit:cover;}
+.photo-upload-icon{font-size:36px;margin-bottom:8px;}
+.photo-upload-text{font-size:13px;color:var(--muted);font-weight:600;}
+.photo-upload-sub{font-size:11px;color:var(--muted);margin-top:4px;}
+
+/* TOAST */
+#toast{display:none;position:fixed;top:20px;right:20px;z-index:9999;
+  color:white;padding:12px 20px;border-radius:10px;font-size:14px;font-weight:700;
+  box-shadow:0 4px 20px #0008;animation:fadeIn .3s ease;}
+
+/* FLOAT WA */
+.float-wa{position:fixed;bottom:26px;right:26px;z-index:200;background:var(--wa);color:white;
+  width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:24px;cursor:pointer;box-shadow:0 4px 20px #25d36660;border:none;}
+
+/* STEPS */
+.steps-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;}
+.step-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px 16px;text-align:center;}
+.step-num{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--gold),#ff9f1c);
+  color:#0a0c13;font-weight:800;font-size:18px;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;
+  font-family:'Rajdhani',sans-serif;}
+
+/* TESTI */
+.testi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;}
+.testi-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;}
+
+/* FOOTER */
+footer{text-align:center;padding:28px 5%;border-top:1px solid var(--border);color:var(--muted);font-size:13px;position:relative;z-index:1;}
+footer .footer-logo{font-family:'Rajdhani',sans-serif;font-size:20px;font-weight:700;color:var(--text);margin-bottom:4px;}
+footer .footer-logo span{color:var(--gold);}
+
+/* ADMIN PRODUCT GRID */
+.admin-product-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px;}
+.admin-product-card{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;}
+.admin-product-banner{height:110px;display:flex;align-items:center;justify-content:center;font-size:32px;overflow:hidden;}
+.admin-product-banner img{width:100%;height:100%;object-fit:cover;}
+.admin-product-info{padding:12px;}
+.admin-product-btns{display:flex;gap:6px;margin-top:10px;}
+.admin-product-btns .btn{flex:1;justify-content:center;padding:7px 0;font-size:12px;}
+
+/* ACTIVITY ROW */
+.activity-row{display:flex;justify-content:space-between;align-items:center;
+  padding:10px 8px;border-bottom:1px solid var(--border);font-size:13px;}
+.activity-row:last-child{border-bottom:none;}
+.activity-row:hover{background:#1a1d2a;}
+
+@media(max-width:480px){
+  .hero h1{font-size:38px;}
+  .stats{margin:0 3% 36px;}
+  section{padding:0 3% 40px;}
+}
+</style>
+</head>
+<body>
+
+<!-- RAMADAN BG -->
+<div id="ramadan-bg">
+  <div class="sky"></div>
+  <div class="ramadan-moon float-moon">🌙</div>
+  <div class="ramadan-star1 float-star">⭐</div>
+  <div class="ramadan-star2 float-star">✨</div>
+  <div class="ramadan-star3 float-star">⭐</div>
+  <div class="lantern1 lantern">🪔</div>
+  <div class="lantern2 lantern">🪔</div>
+  <div class="lantern3 lantern">🪔</div>
+  <div class="lantern4 lantern">🪔</div>
+</div>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="nav-logo" onclick="showPage('home')">FAHMI <span>STORE</span></div>
+  <div class="nav-btns">
+    <span style="color:var(--muted);font-size:14px;font-weight:700;cursor:pointer;padding:6px 10px;" onclick="showPage('home')">🏠 Beranda</span>
+    <div id="nav-login-btn">
+      <button class="btn btn-gold" onclick="showPage('login')">🔐 Login</button>
+    </div>
+    <div id="nav-user-btns" style="display:none;align-items:center;gap:8px;">
+      <span id="nav-username" style="color:var(--gold);font-size:14px;font-weight:700;cursor:pointer;padding:6px 10px;" onclick="showPage('dashboard')"></span>
+      <button class="btn btn-danger-outline" onclick="handleLogout()">Logout</button>
+    </div>
+  </div>
+</nav>
+
+<!-- DRAWER -->
+<div id="drawer-overlay" onclick="closeDrawer()"></div>
+<div id="drawer">
+  <div class="drawer-header">
+    <span style="font-family:'Rajdhani',sans-serif;font-size:16px;font-weight:700;color:var(--gold);">MENU</span>
+    <button class="drawer-close" onclick="closeDrawer()">✕</button>
+  </div>
+  <div class="profile-card">
+    <div class="profile-avatar" id="drawer-avatar">F</div>
+    <div class="profile-name" id="drawer-username">-</div>
+    <div style="margin-top:6px;" id="drawer-badge"></div>
+  </div>
+  <button class="nav-item active" id="nav-overview" onclick="switchDash('overview')">📊 Overview</button>
+  <button class="nav-item" id="nav-products" onclick="switchDash('products')">🛍️ Produk</button>
+  <button class="nav-item" id="nav-history" onclick="switchDash('history')">📋 Riwayat</button>
+  <button class="nav-item" id="nav-manageUsers" style="display:none;" onclick="switchDash('manageUsers')">👥 Kelola Akun</button>
+  <button class="nav-item" id="nav-adminList" style="display:none;" onclick="switchDash('adminList')">🛡️ List Admin</button>
+</div>
+
+<!-- TOAST -->
+<div id="toast"></div>
+
+<!-- ═══════════════ PAGE: HOME ═══════════════ -->
+<div id="home-page" class="page active">
+  <div style="position:relative;z-index:1;">
+    <!-- Hero -->
+    <div class="hero">
+      <div class="hero-badge">🌙 MARHABAN YA RAMADHAN 1446 H ✨</div>
+      <h1><span class="gold">FAHMI STORE</span><br><span class="sub">JB &amp; AKUN GAMING</span></h1>
+      <p>Top up Diamond FF, UC PUBG, Mobile Legends, dan jual beli akun gaming. Harga murah, proses instan!</p>
+      <div class="hero-btns">
+        <button class="btn btn-gold" style="padding:13px 30px;font-size:15px;box-shadow:0 4px 24px #d4a84340;" onclick="document.getElementById('produk-section').scrollIntoView({behavior:'smooth'})">🛒 Lihat Produk</button>
+        <button class="btn btn-outline" style="padding:13px 28px;font-size:15px;" onclick="orderWA(null)">💬 Hubungi Kami</button>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats">
+      <div class="stat"><div class="stat-val">5000+</div><div class="stat-label">Transaksi Sukses</div></div>
+      <div class="stat"><div class="stat-val">3 Game</div><div class="stat-label">Tersedia</div></div>
+      <div class="stat"><div class="stat-val">&lt;5 Menit</div><div class="stat-label">Proses</div></div>
+      <div class="stat"><div class="stat-val">⭐ 4.9</div><div class="stat-label">Rating</div></div>
+    </div>
+
+    <!-- Products -->
+    <section id="produk-section">
+      <div class="section-title">
+        <h2>Pilih <span>Produk</span> Kamu</h2>
+        <p>Tersedia, proses cepat dan aman</p>
+      </div>
+      <div class="tabs">
+        <button class="tab active" onclick="filterProducts('all',this)">Semua</button>
+        <button class="tab" onclick="filterProducts('ff',this)">Free Fire</button>
+        <button class="tab" onclick="filterProducts('ml',this)">Mobile Legends</button>
+        <button class="tab" onclick="filterProducts('pubg',this)">PUBG Mobile</button>
+        <button class="tab" onclick="filterProducts('akun',this)">Akun Siap Pakai</button>
+      </div>
+      <div class="product-grid" id="product-grid"></div>
+    </section>
+
+    <!-- Cara Order -->
+    <section style="background:var(--bg2);padding:48px 5%;">
+      <div class="section-title"><h2>Cara <span>Order</span></h2><p>Mudah dan cepat hanya 4 langkah</p></div>
+      <div class="steps-grid">
+        <div class="step-card"><div class="step-num">1</div><div style="font-weight:700;margin-bottom:6px;">Pilih Produk</div><div style="font-size:13px;color:var(--muted);line-height:1.6;">Pilih produk dari katalog di atas</div></div>
+        <div class="step-card"><div class="step-num">2</div><div style="font-weight:700;margin-bottom:6px;">Klik Order WA</div><div style="font-size:13px;color:var(--muted);line-height:1.6;">Klik tombol Order dan langsung ke WhatsApp</div></div>
+        <div class="step-card"><div class="step-num">3</div><div style="font-weight:700;margin-bottom:6px;">Kirim Data</div><div style="font-size:13px;color:var(--muted);line-height:1.6;">Kirim ID game dan metode pembayaran</div></div>
+        <div class="step-card"><div class="step-num">4</div><div style="font-weight:700;margin-bottom:6px;">Selesai ✅</div><div style="font-size:13px;color:var(--muted);line-height:1.6;">Bayar dikonfirmasi, produk diproses!</div></div>
+      </div>
+    </section>
+
+    <!-- Testimoni -->
+    <section style="padding:48px 5%;">
+      <div class="section-title"><h2>Kata <span>Pelanggan</span></h2><p>Ribuan pelanggan sudah percaya kami</p></div>
+      <div class="testi-grid">
+        <div class="testi-card"><div style="color:var(--gold);margin-bottom:8px;">⭐⭐⭐⭐⭐</div><div style="font-size:13px;color:#a0a8c0;line-height:1.7;margin-bottom:12px;">"Top up diamond FF-nya cepet banget, gak sampai 2 menit langsung masuk. Recommended!"</div><div style="display:flex;align-items:center;gap:10px;"><div style="width:34px;height:34px;border-radius:50%;background:#ff6b3520;color:#ff6b35;display:flex;align-items:center;justify-content:center;font-weight:700;">R</div><div><div style="font-size:13px;font-weight:700;">Rizky A.</div><div style="font-size:11px;color:var(--muted);">Free Fire</div></div></div></div>
+        <div class="testi-card"><div style="color:var(--gold);margin-bottom:8px;">⭐⭐⭐⭐⭐</div><div style="font-size:13px;color:#a0a8c0;line-height:1.7;margin-bottom:12px;">"Beli akun ML mythic, kondisinya sesuai deskripsi. Harga murah, penjual ramah. Mantap!"</div><div style="display:flex;align-items:center;gap:10px;"><div style="width:34px;height:34px;border-radius:50%;background:#3b82f620;color:#3b82f6;display:flex;align-items:center;justify-content:center;font-weight:700;">D</div><div><div style="font-size:13px;font-weight:700;">Dinda P.</div><div style="font-size:11px;color:var(--muted);">Mobile Legends</div></div></div></div>
+        <div class="testi-card"><div style="color:var(--gold);margin-bottom:8px;">⭐⭐⭐⭐⭐</div><div style="font-size:13px;color:#a0a8c0;line-height:1.7;margin-bottom:12px;">"UC PUBG paling murah di sini. Udah langganan dari 2023, ga pernah kecewa!"</div><div style="display:flex;align-items:center;gap:10px;"><div style="width:34px;height:34px;border-radius:50%;background:#d4a84320;color:var(--gold);display:flex;align-items:center;justify-content:center;font-weight:700;">A</div><div><div style="font-size:13px;font-weight:700;">Aldi S.</div><div style="font-size:11px;color:var(--muted);">PUBG Mobile</div></div></div></div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="footer-logo">FAHMI <span>STORE</span></div>
+      <p>JB &amp; Akun Gaming — FF • ML • PUBG</p>
+      <p style="margin-top:4px;">© 2025 Fahmi Store. All rights reserved.</p>
+    </footer>
+  </div>
+</div>
+
+<!-- ═══════════════ PAGE: LOGIN ═══════════════ -->
+<div id="login-page" class="page">
+  <div class="login-wrap">
+    <div class="login-box">
+      <h2>FAHMI STORE</h2>
+      <p>Masuk ke akun kamu</p>
+      <div class="form-group"><label class="form-label">Username / Email</label><input class="form-input" id="login-user" placeholder="Masukkan username" onkeydown="if(event.key==='Enter')handleLogin()"/></div>
+      <div class="form-group"><label class="form-label">Password</label><input class="form-input" type="password" id="login-pass" placeholder="Masukkan password" onkeydown="if(event.key==='Enter')handleLogin()"/></div>
+      <div id="login-err" class="error-msg" style="display:none;"></div>
+      <button class="btn btn-gold btn-full" onclick="handleLogin()">🔐 Masuk</button>
+      <div style="text-align:center;margin-top:14px;font-size:13px;color:var(--muted);">
+        Belum punya akun? <span class="link-text" onclick="openModal('register')">Daftar di sini</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ PAGE: DASHBOARD ═══════════════ -->
+<div id="dashboard-page" class="page">
+  <!-- Topbar -->
+  <div class="dash-topbar">
+    <button class="menu-btn" onclick="openDrawer()">☰</button>
+    <div>
+      <div class="dash-topbar-title" id="dash-title">Overview</div>
+      <div class="dash-topbar-sub" id="dash-sub">Panel</div>
+    </div>
+  </div>
+
+  <div class="dash-content">
+    <!-- OVERVIEW -->
+    <div id="dash-overview" class="fadeIn">
+      <div class="stat-grid" id="overview-stats"></div>
+      <div class="table-wrap">
+        <div style="padding:16px 16px 8px;font-family:'Rajdhani',sans-serif;font-size:18px;font-weight:700;">Aktivitas Terbaru</div>
+        <div id="recent-activity"></div>
+      </div>
+    </div>
+
+    <!-- PRODUCTS -->
+    <div id="dash-products" style="display:none;" class="fadeIn">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+        <h2 style="font-family:'Rajdhani',sans-serif;font-size:24px;">Kelola <span style="color:var(--gold);">Produk</span></h2>
+        <button class="btn btn-gold" onclick="openModal('addProduct')">➕ Tambah</button>
+      </div>
+      <div class="admin-product-grid" id="admin-product-grid"></div>
+    </div>
+
+    <!-- HISTORY -->
+    <div id="dash-history" style="display:none;" class="fadeIn">
+      <h2 style="font-family:'Rajdhani',sans-serif;font-size:24px;margin-bottom:20px;">Riwayat <span style="color:var(--gold);">Aktivitas</span></h2>
+      <div class="table-wrap"><div id="history-list"></div></div>
+    </div>
+
+    <!-- MANAGE USERS -->
+    <div id="dash-manageUsers" style="display:none;" class="fadeIn">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+        <h2 style="font-family:'Rajdhani',sans-serif;font-size:24px;">Kelola <span style="color:var(--gold);">Akun</span></h2>
+        <span id="user-count" style="font-size:13px;color:var(--muted);"></span>
+      </div>
+      <div id="user-list"></div>
+    </div>
+
+    <!-- ADMIN LIST -->
+    <div id="dash-adminList" style="display:none;" class="fadeIn">
+      <h2 style="font-family:'Rajdhani',sans-serif;font-size:24px;margin-bottom:20px;">List <span style="color:var(--gold);">Admin</span></h2>
+      <div id="admin-cards" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-bottom:24px;"></div>
+      <div class="table-wrap" style="padding:20px;">
+        <div style="font-family:'Rajdhani',sans-serif;font-size:18px;font-weight:700;margin-bottom:16px;">Statistik Admin</div>
+        <div style="display:flex;gap:16px;flex-wrap:wrap;" id="admin-stats"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FLOAT WA -->
+<button class="float-wa bounce" onclick="orderWA(null)">💬</button>
+
+<!-- ═══════════════ MODAL ═══════════════ -->
+<div id="modal-overlay" onclick="if(event.target===this)closeModal()">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="modal-title" id="modal-title">Modal</div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div id="modal-body"></div>
+  </div>
+</div>
+
+<script>
+// ══════════════════════════════════════════════════════
+// DATA
+// ══════════════════════════════════════════════════════
+const INITIAL_PRODUCTS = [
+  {id:1,cat:"ff",emoji:"💎",badge:"FREE FIRE",name:"70 Diamond FF",price:"Rp 7.500",color:"#ff6b35",game:"Free Fire",rank:"-",accountId:"",photo:""},
+  {id:2,cat:"ff",emoji:"💎",badge:"FREE FIRE",name:"140 Diamond FF",price:"Rp 14.000",color:"#ff6b35",game:"Free Fire",rank:"-",accountId:"",photo:""},
+  {id:3,cat:"ff",emoji:"💎",badge:"FREE FIRE",name:"355 Diamond FF",price:"Rp 34.000",color:"#ff6b35",game:"Free Fire",rank:"-",accountId:"",photo:""},
+  {id:4,cat:"ml",emoji:"🌙",badge:"MOBILE LEGENDS",name:"86 Diamond ML",price:"Rp 15.000",color:"#3b82f6",game:"Mobile Legends",rank:"-",accountId:"",photo:""},
+  {id:5,cat:"ml",emoji:"🌙",badge:"MOBILE LEGENDS",name:"172 Diamond ML",price:"Rp 28.000",color:"#3b82f6",game:"Mobile Legends",rank:"-",accountId:"",photo:""},
+  {id:6,cat:"pubg",emoji:"🔫",badge:"PUBG MOBILE",name:"60 UC PUBG",price:"Rp 14.000",color:"#d4a843",game:"PUBG Mobile",rank:"-",accountId:"",photo:""},
+  {id:7,cat:"pubg",emoji:"🔫",badge:"PUBG MOBILE",name:"325 UC PUBG",price:"Rp 72.000",color:"#d4a843",game:"PUBG Mobile",rank:"-",accountId:"",photo:""},
+  {id:8,cat:"akun",emoji:"🎮",badge:"AKUN FF",name:"Akun FF Sultan",price:"Rp 150.000",color:"#22c55e",game:"Free Fire",rank:"Heroic",accountId:"1668454001",photo:""},
+  {id:9,cat:"akun",emoji:"🎮",badge:"AKUN ML",name:"Akun ML Mythic",price:"Rp 200.000",color:"#22c55e",game:"Mobile Legends",rank:"Mythic",accountId:"1668454002",photo:""},
+  {id:10,cat:"akun",emoji:"🎮",badge:"AKUN PUBG",name:"Akun PUBG Conqueror",price:"Rp 250.000",color:"#22c55e",game:"PUBG Mobile",rank:"Conqueror",accountId:"1668454003",photo:""},
+];
+const INITIAL_USERS = [
+  {id:"u1",username:"fahmizar571@gmail.com",password:"budi01gaming",role:"owner",online:false,joinDate:"2024-01-01"},
+  {id:"u2",username:"admin1",password:"admin123",role:"admin",online:false,joinDate:"2024-03-10"},
+  {id:"u3",username:"admin2",password:"admin456",role:"admin",online:false,joinDate:"2024-05-22"},
+  {id:"u4",username:"budi",password:"budi123",role:"user",online:false,joinDate:"2024-06-01"},
+  {id:"u5",username:"sari",password:"sari123",role:"user",online:false,joinDate:"2024-07-15"},
+];
+const INITIAL_HISTORY = [
+  {id:"h1",type:"sold",productName:"140 Diamond FF",by:"admin1",date:"2025-03-01 10:22"},
+  {id:"h2",type:"deleted",productName:"Akun FF Sultan",by:"admin1",date:"2025-03-02 14:05"},
+  {id:"h3",type:"sold",productName:"325 UC PUBG",by:"admin2",date:"2025-03-03 09:11"},
+];
+
+// ── STORAGE ──
+function loadData(key, fallback) {
+  try { const s = localStorage.getItem(key); return s ? JSON.parse(s) : fallback; } catch { return fallback; }
+}
+function saveData(key, val) { try { localStorage.setItem(key, JSON.stringify(val)); } catch {} }
+
+let products = loadData("fs_products", INITIAL_PRODUCTS);
+let users    = loadData("fs_users", INITIAL_USERS);
+let history  = loadData("fs_history", INITIAL_HISTORY);
+let currentUser = null;
+let currentDash = "overview";
+let pendingDelete = null;
+let tempPhoto = "";
+
+// ══════════════════════════════════════════════════════
+// HELPERS
+// ══════════════════════════════════════════════════════
+function nowStr() { return new Date().toLocaleString("id-ID"); }
+function uid() { return Math.random().toString(36).slice(2,8); }
+function save() {
+  saveData("fs_products", products);
+  saveData("fs_users", users);
+  saveData("fs_history", history);
+}
+function showToast(msg, type="success") {
+  const t = document.getElementById("toast");
+  t.textContent = msg;
+  t.style.background = type==="error" ? "#ef4444" : type==="info" ? "#3b82f6" : "#22c55e";
+  t.style.display = "block";
+  setTimeout(() => t.style.display = "none", 2800);
+}
+function badge(label, color) {
+  return `<span class="badge" style="background:${color}20;color:${color};border:1px solid ${color}40;">${label}</span>`;
+}
+
+// ══════════════════════════════════════════════════════
+// PAGES
+// ══════════════════════════════════════════════════════
+function showPage(pg) {
+  document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+  document.getElementById(pg+"-page").classList.add("active");
+  if (pg === "home") renderProducts();
+  if (pg === "dashboard") renderDash();
+}
+
+// ══════════════════════════════════════════════════════
+// DRAWER
+// ══════════════════════════════════════════════════════
+function openDrawer() {
+  document.getElementById("drawer").classList.add("open");
+  document.getElementById("drawer-overlay").classList.add("open");
+}
+function closeDrawer() {
+  document.getElementById("drawer").classList.remove("open");
+  document.getElementById("drawer-overlay").classList.remove("open");
+}
+
+// ══════════════════════════════════════════════════════
+// AUTH
+// ══════════════════════════════════════════════════════
+function handleLogin() {
+  const uname = document.getElementById("login-user").value.trim();
+  const pass  = document.getElementById("login-pass").value;
+  const errEl = document.getElementById("login-err");
+  const u = users.find(x => x.username===uname && x.password===pass);
+  if (!u) { errEl.textContent = "⚠️ Username atau password salah!"; errEl.style.display="block"; return; }
+  if (u.role === "user") { errEl.textContent = "⚠️ Akun kamu tidak punya akses panel. Hubungi Owner."; errEl.style.display="block"; return; }
+  errEl.style.display = "none";
+  users = users.map(x => x.id===u.id ? {...x, online:true} : x);
+  save();
+  currentUser = {...u, online:true};
+  updateNavUser();
+  showPage("dashboard");
+  showToast(`Selamat datang, ${u.username}! 👋`);
+}
+function handleLogout() {
+  if (!currentUser) return;
+  users = users.map(x => x.id===currentUser.id ? {...x, online:false} : x);
+  save();
+  currentUser = null;
+  updateNavUser();
+  showPage("home");
+  showToast("Berhasil logout.", "info");
+}
+function handleRegister() {
+  const uname = document.getElementById("reg-user").value.trim();
+  const pass  = document.getElementById("reg-pass").value;
+  if (!uname || !pass) { showToast("Isi semua field!", "error"); return; }
+  if (users.find(u => u.username===uname)) { showToast("Username sudah ada!", "error"); return; }
+  const newU = {id:"u"+uid(), username:uname, password:pass, role:"user", online:false, joinDate:new Date().toISOString().slice(0,10)};
+  users.push(newU);
+  save();
+  closeModal();
+  showToast("Akun berhasil dibuat! Silakan login.");
+}
+function updateNavUser() {
+  const loginBtn = document.getElementById("nav-login-btn");
+  const userBtns = document.getElementById("nav-user-btns");
+  if (currentUser) {
+    loginBtn.style.display = "none";
+    userBtns.style.display = "flex";
+    document.getElementById("nav-username").textContent = (currentUser.role==="owner"?"👑 ":"🛡️ ") + currentUser.username;
+    document.getElementById("drawer-avatar").textContent = currentUser.username[0].toUpperCase();
+    document.getElementById("drawer-username").textContent = currentUser.username;
+    document.getElementById("drawer-badge").innerHTML = currentUser.role==="owner"
+      ? badge("👑 OWNER","#d4a843") : badge("🛡️ ADMIN","#3b82f6");
+    if (currentUser.role === "owner") {
+      document.getElementById("nav-manageUsers").style.display = "flex";
+      document.getElementById("nav-adminList").style.display = "flex";
+    }
+  } else {
+    loginBtn.style.display = "block";
+    userBtns.style.display = "none";
+  }
+}
+
+// ══════════════════════════════════════════════════════
+// WA
+// ══════════════════════════════════════════════════════
+function orderWA(p) {
+  let msg;
+  if (!p) {
+    msg = "Assalamu'alaikum FAHMI STORE JB!\n\nSaya ingin menanyakan info produk yang tersedia.\n\nTerimakasih! 🌙";
+  } else {
+    const rank = p.rank && p.rank!=="-" ? p.rank : "—";
+    const aid  = p.accountId || "—";
+    msg = `Assalamu'alaikum FAHMI STORE JB!\n\nSaya tertarik meminang akun ini:\n🌙 Game: ${p.game||p.badge}\n📜 Judul: ${p.name}\n🏆 Rank: ${rank}\n💰 Mahar: ${p.price}\n🆔 ID Akun: ${aid}\n\nApakah masih tersedia? Terimakasih!`;
+  }
+  const a = document.createElement("a");
+  a.href = "https://wa.me/6285783703465?text=" + encodeURIComponent(msg);
+  a.target = "_blank"; a.rel = "noopener noreferrer";
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+}
+
+// ══════════════════════════════════════════════════════
+// PRODUCTS (Home)
+// ══════════════════════════════════════════════════════
+let activeFilter = "all";
+function filterProducts(cat, el) {
+  activeFilter = cat;
+  document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+  el.classList.add("active");
+  renderProducts();
+}
+function renderProducts() {
+  const filtered = activeFilter==="all" ? products : products.filter(p => p.cat===activeFilter);
+  const grid = document.getElementById("product-grid");
+  if (!grid) return;
+  grid.innerHTML = filtered.map(p => `
+    <div class="product-card">
+      <div class="product-banner" style="background:linear-gradient(135deg,#0d0f1a,${p.color}20);">
+        ${p.photo ? `<img src="${p.photo}" alt="${p.name}"/>` : p.emoji}
+      </div>
+      <div class="product-info">
+        ${badge(p.badge, p.color)}
+        <div class="product-name">${p.name}</div>
+        ${p.rank&&p.rank!=="-"?`<div class="product-meta">🏆 ${p.rank}</div>`:""}
+        ${p.accountId?`<div class="product-meta">🆔 ${p.accountId}</div>`:""}
+        <div class="product-price">${p.price}</div>
+        <button class="btn btn-wa" style="width:100%;justify-content:center;padding:9px 0;font-size:13px;" onclick='orderWA(${JSON.stringify(p)})'>💬 Order Sekarang</button>
+      </div>
+    </div>
+  `).join("");
+}
+
+// ══════════════════════════════════════════════════════
+// DASHBOARD
+// ══════════════════════════════════════════════════════
+function switchDash(tab) {
+  currentDash = tab;
+  ["overview","products","history","manageUsers","adminList"].forEach(t => {
+    const el = document.getElementById("dash-"+t);
+    if (el) el.style.display = t===tab ? "block" : "none";
+  });
+  document.querySelectorAll(".nav-item").forEach(n => n.classList.remove("active"));
+  const navEl = document.getElementById("nav-"+tab);
+  if (navEl) navEl.classList.add("active");
+  const titles = {overview:"Overview",products:"Kelola Produk",history:"Riwayat",manageUsers:"Kelola Akun",adminList:"List Admin"};
+  document.getElementById("dash-title").textContent = titles[tab]||tab;
+  document.getElementById("dash-sub").textContent = currentUser?.role==="owner" ? "Panel Owner 👑" : "Panel Admin 🛡️";
+  closeDrawer();
+  renderDashContent(tab);
+}
+
+function renderDash() {
+  switchDash("overview");
+}
+
+function renderDashContent(tab) {
+  if (tab==="overview") renderOverview();
+  if (tab==="products") renderAdminProducts();
+  if (tab==="history") renderHistory();
+  if (tab==="manageUsers") renderManageUsers();
+  if (tab==="adminList") renderAdminList();
+}
+
+function renderOverview() {
+  const isOwner = currentUser?.role==="owner";
+  const sold    = history.filter(h=>h.type==="sold").length;
+  const deleted = history.filter(h=>h.type==="deleted").length;
+  const added   = history.filter(h=>h.type==="added").length;
+  const admins  = users.filter(u=>u.role==="admin");
+  let stats = [
+    {label:"Total Produk",val:products.length,icon:"🛍️",color:"#d4a843"},
+    {label:"Terjual",val:sold,icon:"💰",color:"#22c55e"},
+    {label:"Dihapus",val:deleted,icon:"🗑️",color:"#ef4444"},
+    {label:"Ditambahkan",val:added,icon:"➕",color:"#3b82f6"},
+  ];
+  if (isOwner) stats = [...stats,
+    {label:"Total User",val:users.filter(u=>u.role==="user").length,icon:"👤",color:"#a78bfa"},
+    {label:"Total Admin",val:admins.length,icon:"🛡️",color:"#f472b6"},
+    {label:"Admin Online",val:admins.filter(a=>a.online).length,icon:"🟢",color:"#22c55e"},
+  ];
+  document.getElementById("overview-stats").innerHTML = stats.map(s=>`
+    <div class="stat-card">
+      <div style="font-size:22px;margin-bottom:8px;">${s.icon}</div>
+      <div class="stat-card-val" style="color:${s.color};">${s.val}</div>
+      <div class="stat-card-label">${s.label}</div>
+    </div>`).join("");
+  document.getElementById("recent-activity").innerHTML = history.slice(0,5).map(h=>`
+    <div class="activity-row">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span>${h.type==="sold"?"💰":h.type==="deleted"?"🗑️":"➕"}</span>
+        <span style="font-weight:600;">${h.productName}</span>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center;">
+        ${badge(h.type==="sold"?"TERJUAL":h.type==="deleted"?"DIHAPUS":"DITAMBAH", h.type==="sold"?"#22c55e":h.type==="deleted"?"#ef4444":"#3b82f6")}
+        <span style="font-size:11px;color:var(--muted);">@${h.by}</span>
+      </div>
+    </div>`).join("") || `<div style="padding:28px;text-align:center;color:var(--muted);">Belum ada aktivitas.</div>`;
+}
+
+function renderAdminProducts() {
+  document.getElementById("admin-product-grid").innerHTML = products.map(p=>`
+    <div class="admin-product-card">
+      <div class="admin-product-banner" style="background:linear-gradient(135deg,#0d0f1a,${p.color}20);">
+        ${p.photo ? `<img src="${p.photo}" alt="${p.name}"/>` : p.emoji}
+      </div>
+      <div class="admin-product-info">
+        ${badge(p.badge,p.color)}
+        <div style="font-weight:700;font-size:13px;margin:6px 0 2px;">${p.name}</div>
+        ${p.rank&&p.rank!=="-"?`<div style="font-size:11px;color:var(--muted);">🏆 ${p.rank}</div>`:""}
+        <div style="font-family:'Rajdhani',sans-serif;font-size:18px;font-weight:700;color:var(--gold);">${p.price}</div>
+        <div class="admin-product-btns">
+          <button class="btn btn-green" onclick="markSold(${p.id})">✔ Terjual</button>
+          <button class="btn btn-red" onclick="confirmDeleteProduct(${p.id})">🗑 Hapus</button>
+        </div>
+      </div>
+    </div>`).join("") || `<div style="color:var(--muted);padding:20px;">Belum ada produk.</div>`;
+}
+
+function renderHistory() {
+  document.getElementById("history-list").innerHTML = history.map(h=>`
+    <div class="activity-row">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span>${h.type==="sold"?"💰":h.type==="deleted"?"🗑️":"➕"}</span>
+        <span style="font-weight:600;">${h.productName}</span>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+        ${badge(h.type==="sold"?"💰 TERJUAL":h.type==="deleted"?"🗑️ DIHAPUS":"➕ DITAMBAH", h.type==="sold"?"#22c55e":h.type==="deleted"?"#ef4444":"#3b82f6")}
+        <span style="font-size:11px;color:var(--muted);">@${h.by} · ${h.date}</span>
+      </div>
+    </div>`).join("") || `<div style="padding:28px;text-align:center;color:var(--muted);">Belum ada riwayat.</div>`;
+}
+
+function renderManageUsers() {
+  const allUsers = users.filter(u => u.role!=="owner");
+  document.getElementById("user-count").textContent = allUsers.length + " akun";
+  document.getElementById("user-list").innerHTML = allUsers.map(u=>`
+    <div class="user-card">
+      <div class="user-card-top">
+        <div class="user-avatar" style="background:${u.role==="admin"?"linear-gradient(135deg,#3b82f6,#60a5fa)":"linear-gradient(135deg,#374151,#6b7280)"};">
+          ${u.username[0].toUpperCase()}
+          <span class="online-dot" style="background:${u.online?"#22c55e":"#6b7399"};"></span>
+        </div>
+        <div>
+          <div style="font-weight:700;font-size:15px;">@${u.username}</div>
+          <div style="display:flex;gap:8px;align-items:center;margin-top:4px;flex-wrap:wrap;">
+            ${badge(u.role==="admin"?"🛡️ Admin":"👤 User", u.role==="admin"?"#3b82f6":"#6b7399")}
+            <span style="font-size:11px;color:${u.online?"#22c55e":"var(--muted)"};">${u.online?"🟢 Online":"⚫ Offline"}</span>
+          </div>
+          <div style="font-size:11px;color:var(--muted);margin-top:2px;">Bergabung: ${u.joinDate}</div>
+        </div>
+      </div>
+      <div class="user-btns">
+        ${u.role==="user"
+          ? `<button class="btn btn-blue" onclick="makeAdmin('${u.id}')">🛡️ Jadikan Admin</button>`
+          : `<button class="btn" style="background:#2a2d3e;color:var(--muted);flex:1;justify-content:center;padding:10px 0;" onclick="demoteUser('${u.id}')">⬇️ Jadikan User</button>`}
+        <button class="btn btn-red" onclick="confirmDeleteUser('${u.id}')">🗑️ Hapus</button>
+      </div>
+    </div>`).join("") || `<div style="text-align:center;color:var(--muted);padding:40px;">Belum ada akun.</div>`;
+}
+
+function renderAdminList() {
+  const admins = users.filter(u=>u.role==="admin");
+  document.getElementById("admin-cards").innerHTML = admins.map(a=>`
+    <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px;display:flex;gap:12px;align-items:center;">
+      <div style="width:48px;height:48px;border-radius:50%;flex-shrink:0;background:linear-gradient(135deg,#3b82f6,#60a5fa);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;color:white;position:relative;">
+        ${a.username[0].toUpperCase()}
+        <span style="position:absolute;bottom:1px;right:1px;width:12px;height:12px;border-radius:50%;background:${a.online?"#22c55e":"#6b7399"};border:2px solid var(--card);"></span>
+      </div>
+      <div>
+        <div style="font-weight:700;font-size:14px;">@${a.username}</div>
+        <div style="font-size:12px;color:${a.online?"#22c55e":"var(--muted)"};margin-top:2px;">${a.online?"🟢 Online":"⚫ Offline"}</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:2px;">Bergabung: ${a.joinDate}</div>
+      </div>
+    </div>`).join("") || `<div style="color:var(--muted);">Belum ada admin.</div>`;
+
+  const online = admins.filter(a=>a.online).length;
+  document.getElementById("admin-stats").innerHTML = [
+    ["Total Admin",admins.length,"#3b82f6"],
+    ["Online",online,"#22c55e"],
+    ["Offline",admins.length-online,"#6b7399"],
+  ].map(([l,v,c])=>`
+    <div style="text-align:center;padding:14px 24px;background:var(--bg2);border-radius:10px;border:1px solid var(--border);">
+      <div style="font-family:'Rajdhani',sans-serif;font-size:28px;font-weight:700;color:${c};">${v}</div>
+      <div style="font-size:12px;color:var(--muted);margin-top:3px;">${l}</div>
+    </div>`).join("");
+}
+
+// ══════════════════════════════════════════════════════
+// ACTIONS
+// ══════════════════════════════════════════════════════
+function markSold(id) {
+  const p = products.find(x=>x.id===id);
+  if (!p) return;
+  products = products.filter(x=>x.id!==id);
+  history.unshift({id:"h"+uid(),type:"sold",productName:p.name,by:currentUser.username,date:nowStr()});
+  save(); renderAdminProducts(); renderProducts();
+  showToast(`${p.name} ditandai terjual! 💰`);
+}
+function confirmDeleteProduct(id) {
+  const p = products.find(x=>x.id===id);
+  if (!p) return;
+  pendingDelete = {type:"product", id};
+  openModal("confirmDelete", `Yakin hapus produk <b style="color:var(--text)">${p.name}</b>?`);
+}
+function confirmDeleteUser(id) {
+  const u = users.find(x=>x.id===id);
+  if (!u) return;
+  pendingDelete = {type:"user", id};
+  openModal("confirmDelete", `Yakin hapus akun <b style="color:var(--text)">@${u.username}</b>?`);
+}
+function executePendingDelete() {
+  if (!pendingDelete) return;
+  if (pendingDelete.type==="product") {
+    const p = products.find(x=>x.id===pendingDelete.id);
+    if (p) { products = products.filter(x=>x.id!==pendingDelete.id); history.unshift({id:"h"+uid(),type:"deleted",productName:p.name,by:currentUser.username,date:nowStr()}); }
+    save(); renderAdminProducts(); renderProducts();
+    showToast("Produk dihapus.", "error");
+  } else {
+    const u = users.find(x=>x.id===pendingDelete.id);
+    if (u) { users = users.filter(x=>x.id!==pendingDelete.id); save(); renderManageUsers(); showToast(`Akun @${u.username} dihapus.`, "error"); }
+  }
+  pendingDelete = null;
+  closeModal();
+}
+function makeAdmin(id) {
+  users = users.map(u=>u.id===id?{...u,role:"admin"}:u);
+  save(); renderManageUsers();
+  const u = users.find(x=>x.id===id);
+  showToast(`@${u?.username} dijadikan Admin! 🛡️`);
+}
+function demoteUser(id) {
+  users = users.map(u=>u.id===id?{...u,role:"user"}:u);
+  save(); renderManageUsers();
+  const u = users.find(x=>x.id===id);
+  showToast(`@${u?.username} dijadikan User biasa.`, "info");
+}
+
+// ══════════════════════════════════════════════════════
+// ADD PRODUCT
+// ══════════════════════════════════════════════════════
+function handleAddProduct() {
+  const name  = document.getElementById("prod-name").value.trim();
+  const price = document.getElementById("prod-price").value.trim();
+  const cat   = document.getElementById("prod-cat").value;
+  const badge_= document.getElementById("prod-badge").value.trim();
+  const rank  = document.getElementById("prod-rank").value.trim();
+  const accId = document.getElementById("prod-accid").value.trim();
+  if (!name||!price) { showToast("Isi nama & harga!", "error"); return; }
+  const colorMap={ff:"#ff6b35",ml:"#3b82f6",pubg:"#d4a843",akun:"#22c55e"};
+  const emojiMap={ff:"💎",ml:"🌙",pubg:"🔫",akun:"🎮"};
+  const gameMap={ff:"Free Fire",ml:"Mobile Legends",pubg:"PUBG Mobile",akun:"Akun"};
+  const newP={id:Date.now(),cat,emoji:emojiMap[cat],badge:badge_||cat.toUpperCase(),name,price,
+    color:colorMap[cat],game:gameMap[cat],rank:rank||"-",accountId:accId,photo:tempPhoto};
+  products.push(newP);
+  history.unshift({id:"h"+uid(),type:"added",productName:name,by:currentUser.username,date:nowStr()});
+  save(); renderAdminProducts(); renderProducts();
+  tempPhoto="";
+  closeModal();
+  showToast("Produk berhasil ditambahkan! ✅");
+}
+
+// ══════════════════════════════════════════════════════
+// MODAL
+// ══════════════════════════════════════════════════════
+function openModal(type, extra) {
+  const overlay = document.getElementById("modal-overlay");
+  const title   = document.getElementById("modal-title");
+  const body    = document.getElementById("modal-body");
+  overlay.classList.add("open");
+  tempPhoto = "";
+
+  if (type==="register") {
+    title.textContent = "Daftar Akun Baru";
+    body.innerHTML = `
+      <div class="form-group"><label class="form-label">Username</label><input class="form-input" id="reg-user" placeholder="Buat username"/></div>
+      <div class="form-group"><label class="form-label">Password</label><input class="form-input" type="password" id="reg-pass" placeholder="Buat password"/></div>
+      <button class="btn btn-gold btn-full" onclick="handleRegister()">✅ Daftar Sekarang</button>`;
+  }
+  else if (type==="addProduct") {
+    title.textContent = "➕ Tambah Produk";
+    body.innerHTML = `
+      <div class="form-group">
+        <label class="form-label">📸 Foto Sampul Akun</label>
+        <div class="photo-upload-area" id="upload-area" onclick="document.getElementById('photo-file').click()">
+          <div class="photo-upload-icon">🖼️</div>
+          <div class="photo-upload-text">Ketuk untuk pilih foto</div>
+          <div class="photo-upload-sub">dari galeri HP kamu</div>
+        </div>
+        <input type="file" id="photo-file" accept="image/*" style="display:none;" onchange="handlePhotoUpload(this)"/>
+        <button id="remove-photo-btn" onclick="removePhoto()" style="display:none;margin-top:6px;background:none;border:none;color:#ef4444;font-size:12px;cursor:pointer;font-weight:700;">✕ Hapus Foto</button>
+      </div>
+      <div class="form-group"><label class="form-label">Nama Produk</label><input class="form-input" id="prod-name" placeholder="cth: Akun Polosan FF"/></div>
+      <div class="form-group"><label class="form-label">Harga</label><input class="form-input" id="prod-price" placeholder="cth: Rp 300.000"/></div>
+      <div class="form-group"><label class="form-label">Kategori</label>
+        <select class="form-select" id="prod-cat">
+          <option value="ff">Free Fire</option>
+          <option value="ml">Mobile Legends</option>
+          <option value="pubg">PUBG Mobile</option>
+          <option value="akun">Akun Siap Pakai</option>
+        </select>
+      </div>
+      <div class="form-group"><label class="form-label">Badge Label (opsional)</label><input class="form-input" id="prod-badge" placeholder="cth: FREE FIRE"/></div>
+      <div class="form-group"><label class="form-label">Rank / Level Akun</label><input class="form-input" id="prod-rank" placeholder="cth: Heroic, Mythic, Master"/></div>
+      <div class="form-group"><label class="form-label">ID Akun</label><input class="form-input" id="prod-accid" placeholder="cth: 1668454263"/></div>
+      <button class="btn btn-gold btn-full" onclick="handleAddProduct()">➕ Tambah Produk</button>`;
+  }
+  else if (type==="confirmDelete") {
+    title.textContent = "🗑️ Konfirmasi Hapus";
+    body.innerHTML = `
+      <p style="color:var(--muted);font-size:14px;margin-bottom:20px;line-height:1.6;">${extra} Tindakan ini tidak bisa dibatalkan.</p>
+      <div style="display:flex;gap:10px;">
+        <button class="btn btn-outline" style="flex:1;justify-content:center;" onclick="closeModal()">Batal</button>
+        <button class="btn btn-red" style="flex:1;justify-content:center;" onclick="executePendingDelete()">🗑 Hapus</button>
+      </div>`;
+  }
+}
+function closeModal() {
+  document.getElementById("modal-overlay").classList.remove("open");
+}
+
+// ══════════════════════════════════════════════════════
+// PHOTO UPLOAD
+// ══════════════════════════════════════════════════════
+function handlePhotoUpload(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    tempPhoto = e.target.result;
+    const area = document.getElementById("upload-area");
+    area.innerHTML = `<img src="${tempPhoto}" style="width:100%;height:100%;object-fit:cover;"/>`;
+    area.classList.add("has-photo");
+    document.getElementById("remove-photo-btn").style.display = "block";
+  };
+  reader.readAsDataURL(file);
+}
+function removePhoto() {
+  tempPhoto = "";
+  const area = document.getElementById("upload-area");
+  area.innerHTML = `
+    <div class="photo-upload-icon">🖼️</div>
+    <div class="photo-upload-text">Ketuk untuk pilih foto</div>
+    <div class="photo-upload-sub">dari galeri HP kamu</div>`;
+  area.classList.remove("has-photo");
+  document.getElementById("remove-photo-btn").style.display = "none";
+  document.getElementById("photo-file").value = "";
+}
+
+// ══════════════════════════════════════════════════════
+// INIT
+// ══════════════════════════════════════════════════════
+renderProducts();
+</script>
+</body>
+</html>
